@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017/Cookmaster`;
+const MONGO_DB_URL = `mongodb://${process.env.HOST}:27017/Ebytr`;
 
 const DB_NAME = 'Ebytr';
 

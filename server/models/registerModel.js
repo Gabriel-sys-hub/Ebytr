@@ -9,13 +9,13 @@ const findByEmail = async (email) => {
   return result;
 };
 
-const setUserRegister = async (name, email, password) => {
+const setUserRegister = async (email, password) => {
   const role = 'user';
   const result = await connection()
-    .then((db) => db.collection(REGISTERED_USERS).insertOne({ name, email, password, role }))
+    .then((db) => db.collection(REGISTERED_USERS).insertOne({ email, password, role }))
     .then((inserted) => inserted.insertedId)
     .catch(() => null);
-  return { user: { name, email, role, _id: result.insertedId } };
+  return { user: { email, role, _id: result.insertedId } };
 };
 
 module.exports = {

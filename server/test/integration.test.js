@@ -1,4 +1,4 @@
-/* const chai = require('chai');
+const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../api/app');
 const sinon = require('sinon');
@@ -39,10 +39,13 @@ describe('Teste de integração', () => {
       await mongo.stop();
     });
     it ('Retorna um objeto', () => {
-      expect(response).to.be.an('object')
+      expect(response.body.user).to.be.an('object')
+    })
+    it ('Retorna os campos "email"', () => {
+      expect(response.body.user).to.have.property('email');
     })
     it('Retorna o código de status 201 e o objeto usuário', () => {
       expect(response).to.have.status(201);
     });
   });
-}); */
+});

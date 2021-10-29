@@ -11,11 +11,11 @@ function Register() {
       password: values.password,
     }).then((response) => {
       console.log(response);
-    }).catch((err) => console.log(err))
+    }).catch(() => alert('Email já existe'))
   }
 
   const validationRegister = yup.object().shape({
-    email: yup.string().email('Its not a Email').required('Email is required'),
+    email: yup.string().email('Invalid Email').required('Email is required'),
     password: yup.string().min(8).required('Password is required'),
   })
 

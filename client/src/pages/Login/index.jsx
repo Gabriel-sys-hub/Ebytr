@@ -18,11 +18,11 @@ function Login() {
   });
 
   const handleLogin = (values) => {
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("http://localhost:3000/login", {
       email: values.email,
       password: values.password,
     }).then((response) => {
-      alert(response.data.msg);
+      console.log(response.data)
     });
   };
 

@@ -3,6 +3,8 @@ const service = require('../service/registerService');
 const setUserRegister = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(email)
+
   const checkIfemailExists = await service.findByEmail(email);
 
   if (!checkIfemailExists) {

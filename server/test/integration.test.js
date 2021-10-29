@@ -1,44 +1,50 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const server = require('../api/app');
 const sinon = require('sinon');
 const { MongoClient } = require('mongodb');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const server = require('../api/app');
 
 chai.use(chaiHttp);
 
-const { expect } = chai;
+const { expect } = chai
 
-describe('Teste de integração', function () {
-  describe('Quando usuário é criado com sucesso', function () {
+describe('Teste de integração', () => {
+  describe('Quando usuário é criado com sucesso', () => {
     let response = {};
-    const DBServer = new MongoMemoryServer();
 
-    before(async function () {
-      const URLMock = await DBServer.getUri();
+    before(async () => {
+      const mongo = await MongoMemoryServer.create();
+      const uri = mongo.getUri();
       const OPTIONS = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       };
-      const connectionMock = await MongoClient.connect(URLMock, OPTIONS);
+
+      const connectionMock = await MongoClient.connect(uri, OPTIONS);
 
       sinon.stub(MongoClient, 'connect').resolves(connectionMock);
 
       response = await chai.request(server)
-        .post('/users')
+        .post('/register')
         .send({
-            name: 'Gabriel',
-            email: 'gabriel@gmail.com',
-            password: 'senha123',
+            'email': 'gabriel@gmail.com',
+            'password': 'senha123'
         });
     });
 
-    after(async function () {
+    after(async () => {
       MongoClient.connect.restore();
-      await DBServer.stop();
+      const mongo = await MongoMemoryServer.create();
+      await mongo.stop();
     });
-
-    it('Retorna o código de status 201 e o objeto usuário', function () {
+    it ('Retorna um objeto', () => {
+      expect(response.body.user).to.be.an('object')
+    })
+    it ('Retorna os campos "email"', () => {
+      expect(response.body.user).to.have.property('email');
+    })
+    it('Retorna o código de status 201 e o objeto usuário', () => {
       expect(response).to.have.status(201);
     });
   });

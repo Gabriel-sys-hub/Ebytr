@@ -19,6 +19,8 @@
 
 <h2 align='center'>Funcionalidades</h1>
 <ul>
+  <li>Cadastrar usuário no Banco de Dados;</li>
+  <li>Fazer login;</li>
   <li>Visualizar a lista de tarefas;</li>
   <li>Inserir uma nova tarefa na lista;</li>
     <ul>

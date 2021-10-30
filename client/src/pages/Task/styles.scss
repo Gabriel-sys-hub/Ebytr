@@ -1,4 +1,5 @@
 .mainContainer {
+  background-color: var(--background-purple);
   display: flex;
   flex-direction: row;
 
@@ -9,10 +10,11 @@
   .taskContainer {
     width: 70%;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: rgb(255, 255, 255);
   }
 
   .secondHeader {
+    background-color: var(--background-purple);
     width: 25%;
   }
 }

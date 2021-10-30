@@ -1,6 +1,6 @@
 .loginContainer {
   align-items: center;
-  background-color: rgb(146, 35, 168);
+  background-color: var(--background-purple);
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -9,7 +9,7 @@
   .loginName::after {
     content: '';
     width: 20px;
-    background: rgb(146, 35, 168);
+    background: var(--background-purple);
     height: 4px;
     display: block;
   }
@@ -58,18 +58,18 @@
     }
 
     .button {
-      border: 1px solid rgb(146, 35, 168);
+      border: 1px solid var(--background-purple);
       border-radius: 5px;
       background-color: transparent;
       cursor: pointer;
-      color: rgb(146, 35, 168);
+      color: var(--background-purple);
       font-weight: 700;
       margin-top: 10px;
       padding: 10px;
       width: 100%;
 
       &:hover {
-        background-color: rgb(146, 35, 168);
+        background-color: var(--background-purple);
         color: white;
       }
     }
@@ -78,18 +78,18 @@
      width: 100%;
 
      .registerButton {
-        border: 1px solid rgb(146, 35, 168);
+        border: 1px solid var(--background-purple);
         border-radius: 5px;
         background-color: transparent;
         cursor: pointer;
-        color: rgb(146, 35, 168);
+        color: var(--background-purple);
         font-weight: 700;
         margin-top: 10px;
         padding: 10px;
         width: 100%;
 
         &:hover {
-          background-color: rgb(146, 35, 168);
+          background-color: var(--background-purple);
           color: white;
         }
       } 

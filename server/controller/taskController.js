@@ -12,6 +12,31 @@ const saveTask = async (req, res) => {
   res.status(200).json(result);
 };
 
+const getAllTasks = async (req, res) => {
+  const { email } = req.body;
+
+  const result = await service.getAllTasks(email);
+
+  return res.status(200).json(result);
+}
+
+const updateTask = async (req, res) => {
+  
+  const tasks = await getAllTasks();
+
+  const findTaskWithId = tasks.find((newId) => tasks.id === newId);
+
+  console.log(findTaskWithId);
+
+  if (findTaskWithId === null) return false; 
+
+  const result = await service.updateTask(findTaskWithId)
+
+  return res.status(200).json(result);
+}
+
 module.exports = {
   saveTask,
+  updateTask,
+  getAllTasks,
 }

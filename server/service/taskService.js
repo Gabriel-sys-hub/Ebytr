@@ -6,6 +6,19 @@ const saveTask = async (task, email, createdAt) => {
   return result;
 };
 
+const updateTask = async (id) => {
+  const result = await taskModule.updateTask(id);
+
+  return result;
+}
+
+const getAllTasks = async (email) => {
+  const result = await taskModule.getAllTasks(email);
+  return result;
+}
+
 module.exports = {
   saveTask,
+  updateTask,
+  getAllTasks
 }

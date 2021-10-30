@@ -14,6 +14,7 @@ describe('Tasks', () => {
     let response = {};
     let tasks = [{}];
     let userDoesNotExist = {};
+    let userNotRegistered = {};
 
     before(async () => {
       const mongo = await MongoMemoryServer.create();
@@ -40,6 +41,13 @@ describe('Tasks', () => {
             'email': 'gabriel@gmail.com',
             'password': 'senha123'
         });
+      
+      userNotRegistered = await chai.request(server)
+      .post('/login')
+      .send({
+          'email': 'userNotRegistered',
+          'password': '1234567'
+      });
 
       tasks = await chai.request(server)
         .post('/tasks')
@@ -71,7 +79,8 @@ describe('Tasks', () => {
       expect(tasks.body.tasks.email).to.be.equal(response.body.email)
       done();
     })
-    describe('Se usuário estiver deslogado', () => {
+
+    describe('Se usuário estiver deslogado ou não existe', () => {
 
       it ('A mensagem recebida vai ser "User not loged in or does not exists!"', (done) => {
         expect(userDoesNotExist.body.message).to.be.equal("User not loged in or does not exists!");
@@ -80,6 +89,16 @@ describe('Tasks', () => {
 
       it ('Vai retornar o erro 400', (done) => {
         expect(userDoesNotExist).to.have.status(400);
+        done();
+      })
+
+      it ('Login com usuário inválido', (done) => {
+        expect(userNotRegistered).to.have.status(401);
+        done();
+      })
+
+      it ('Login com usuário inválido retorna mensagem de erro "Incorrect username or password"', (done) => {
+        expect(userNotRegistered.body.message).to.be.equal("Incorrect username or password");
         done();
       })
     })

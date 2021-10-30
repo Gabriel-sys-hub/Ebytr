@@ -12,9 +12,8 @@ const { expect } = chai
 describe('Tasks', () => {
   describe('Quando a task é registrada com sucesso', () => {
     let response = {};
-    let tasks = [{
-
-    }];
+    let tasks = [{}];
+    let userDoesNotExist = {};
 
     before(async () => {
       const mongo = await MongoMemoryServer.create();
@@ -49,6 +48,11 @@ describe('Tasks', () => {
             'task': 'Fazer farinha com pão de sal'
         });
 
+      userDoesNotExist = await chai.request(server)
+        .post('/tasks')
+        .send({
+            'task': 'Fazer farinha com pão de sal'
+        });
       
     });
 
@@ -67,5 +71,18 @@ describe('Tasks', () => {
       expect(tasks.body.tasks.email).to.be.equal(response.body.email)
       done();
     })
+    describe('Se usuário estiver deslogado', () => {
+
+      it ('A mensagem recebida vai ser "User not loged in or does not exists!"', (done) => {
+        expect(userDoesNotExist.body.message).to.be.equal("User not loged in or does not exists!");
+        done();
+      })
+
+      it ('Vai retornar o erro 400', (done) => {
+        expect(userDoesNotExist).to.have.status(400);
+        done();
+      })
+    })
   });
 });
+

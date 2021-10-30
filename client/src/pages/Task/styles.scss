@@ -1,0 +1,18 @@
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+
+  .firstHeader {
+    width: 5%
+  }
+
+  .taskContainer {
+    width: 70%;
+    height: 100vh;
+    background-color: antiquewhite;
+  }
+
+  .secondHeader {
+    width: 25%;
+  }
+}

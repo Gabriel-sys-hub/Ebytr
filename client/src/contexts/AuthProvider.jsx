@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       email: values.email,
       password: values.password,
     }).then((response) => {
+      console.log(response)
       setLogin(response.data);
     });
   };

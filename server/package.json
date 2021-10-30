@@ -5,7 +5,7 @@
   "main": "./api/server.js",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit",
-    "dev:test": "mocha ./test/users.test.js --exit",
+    "dev:test": "mocha ./test/task.test.js --exit",
     "lint": "eslint",
     "dev": "nodemon ."
   },

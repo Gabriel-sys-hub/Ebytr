@@ -1,10 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import Axios from 'axios';
 
 function Login() {
+  
+  const context = useContext(UserContext);
+
+  console.log(context)
 
   const validationsLogin = yup.object().shape({
     email: yup
@@ -17,21 +21,13 @@ function Login() {
       .required("Password is required"),
   });
 
-  const handleLogin = (values) => {
-    Axios.post("http://localhost:3000/login", {
-      email: values.email,
-      password: values.password,
-    }).then((response) => {
-      console.log(response.data)
-    });
-  };
-
   return (
     <div>
-  <h1>Login</h1>
+      {/* { context.login && <Redirect to="/tasks"/>} */}
+    <h1>Login</h1>
       <Formik
         initialValues={{}}
-        onSubmit={handleLogin}
+        /* onSubmit={context.handleLogin} */
         validationSchema={validationsLogin}
       >
         <Form className="login-form">

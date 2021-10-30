@@ -25,7 +25,7 @@ const login = async (req, res) => {
   }
 
   const token = jwt.sign({ data: response }, secret, jwtConfig);
-  return res.status(OK_200).json({ token });
+  return res.status(OK_200).json({ token, email });
 };
 
 module.exports = {

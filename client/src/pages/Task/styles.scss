@@ -1,0 +1,20 @@
+.mainContainer {
+  background-color: var(--background-purple);
+  display: flex;
+  flex-direction: row;
+
+  .firstHeader {
+    width: 5%
+  }
+
+  .taskContainer {
+    width: 70%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .secondHeader {
+    background-color: var(--background-purple);
+    width: 25%;
+  }
+}

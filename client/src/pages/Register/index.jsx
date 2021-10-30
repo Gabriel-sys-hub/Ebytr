@@ -5,6 +5,7 @@ import Axios from 'axios';
 import './styles.scss';
 
 function Register() {
+  
   const handleClickRegister = (values) => {
     Axios.post('http://localhost:3000/register', {
       email: values.email,

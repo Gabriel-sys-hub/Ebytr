@@ -1,43 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup';
-import Axios from 'axios';
+import './styles.scss';
 
 function Login() {
+  
+  const context = useContext(UserContext);
 
-  const validationsLogin = yup.object().shape({
-    email: yup
-      .string()
-      .email("Invalid Email")
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(8, "Password need to be atlast 8 characteres lenght")
-      .required("Password is required"),
-  });
-
-  const handleLogin = (values) => {
-    Axios.post("http://localhost:3000/login", {
-      email: values.email,
-      password: values.password,
-    }).then((response) => {
-      console.log(response.data)
-    });
-  };
+  console.log(context)
 
   return (
-    <div>
-  <h1>Login</h1>
+    <div className="loginContainer">
+      { context.login.email && <Redirect to="/tasks"/>}
+    <div className="loginWhiteContainer">
+    <h1 className="loginName">Login</h1>
       <Formik
         initialValues={{}}
-        onSubmit={handleLogin}
-        validationSchema={validationsLogin}
+        onSubmit={context.handleLogin}
+        validationSchema={context.validationsLogin}
       >
         <Form className="login-form">
           <div className="login-form-group">
             <Field name="email" className="form-field" placeholder="Email" />
-
             <ErrorMessage
               component="span"
               name="email"
@@ -47,7 +32,6 @@ function Login() {
           {/*Outro campo*/}
           <div className="form-group">
             <Field name="password" className="form-field" placeholder="Senha" />
-
             <ErrorMessage
               component="span"
               name="password"
@@ -58,9 +42,10 @@ function Login() {
           <button className="button" type="submit">
             Login
           </button>
+          <Link to="/register" type="button"><button className="registerButton" type="button">Register</button></Link>
         </Form>
       </Formik>
-      <Link to="/register" type="button">Register</Link>
+    </div>
     </div>
   );
 }

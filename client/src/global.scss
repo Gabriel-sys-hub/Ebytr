@@ -1,3 +1,13 @@
+:root {
+  --background-purple: rgb(146, 35, 168);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif, Arial, Helvetica;
 }

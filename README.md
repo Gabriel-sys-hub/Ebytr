@@ -9,11 +9,14 @@
   <ul>
       <li>Javascript</li>
     </ul>
-  <li>React Redux</li>
+  <li>React</li>
     <ul>
-      <li>Redux Saga</li>
+      <li>Context Api - Manipulação de estados e organização de pagina</li>
     </ul>
   <li>NodeJS</li>
+    <ul>
+      <li>Express</li>
+    </ul>
   <li>MongoDB</li>
 </ul>
 

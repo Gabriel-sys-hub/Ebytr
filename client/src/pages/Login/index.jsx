@@ -8,8 +8,6 @@ function Login() {
   
   const context = useContext(UserContext);
 
-  console.log(context)
-
   return (
     <div className="loginContainer">
       { context.login.email && <Redirect to="/tasks"/>}

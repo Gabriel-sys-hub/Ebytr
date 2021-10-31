@@ -13,7 +13,7 @@ const saveTask = async (req, res) => {
 };
 
 const getAllTasks = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.params;
 
   const result = await service.getAllTasks(email);
 

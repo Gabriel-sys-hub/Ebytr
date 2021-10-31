@@ -11,7 +11,7 @@ function Register() {
       email: values.email,
       password: values.password,
     }).then((response) => {
-      console.log(response);
+      return response;
     }).catch(() => alert('Email já existe'))
   }
 

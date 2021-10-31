@@ -102,8 +102,7 @@
 
       .submitContainer {
         display: flex;
-        margin-top: 20px;
-        justify-content: flex-end;
+        flex-direction: column;
         width: 100%;
 
         button {
@@ -112,7 +111,9 @@
           border: solid 1px white;
           cursor: pointer;
           color: white;
+          margin-top: 20px;
           width: 50%;
+          align-self: flex-end;
           padding: 10px;
 
           &:hover {

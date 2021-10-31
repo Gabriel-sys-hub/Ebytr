@@ -8,9 +8,31 @@
   }
 
   .taskContainer {
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
     width: 70%;
     height: 100vh;
-    background-color: rgb(255, 255, 255);
+
+    .eachTaskContainer {
+      background-color: var(--task-container);
+      box-shadow: rgba(0, 0, 0, 0.212) 2px 5px 3px 1px;
+      border-radius: 5px;
+      width: 15%;
+      padding: 15px;
+      height: 150px;
+      margin: 5px;
+
+      &:after {
+        content: '';
+        width: 50px;
+        height: 1px;
+        background-color: var(--background-purple);
+        display: flex;
+      }
+    }
   }
 
   .secondHeader {

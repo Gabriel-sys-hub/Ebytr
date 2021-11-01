@@ -19,7 +19,7 @@ function Task() {
 
     if (email) handleAllTasks(email);
     if (!email) handleAllTasks(logedUser);
-  }, [logedUser])
+  }, [logedUser, deleteTask])
 
   return (
   <div className="mainContainer">
@@ -43,7 +43,7 @@ function Task() {
               {eachItem.task}
             </div>
             <div className="buttonContainer">
-              <button type="button" value={eachItem._id} onClick={(event) => deleteTask(event)}>
+              <button type="button" onClick={() => deleteTask(eachItem._id)}>
                 <AiFillDelete/>
               </button>
               <button>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import UserContext from './UserContext';
 import Axios from 'axios';
 import * as yup from 'yup';
@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }) => {
 
   const handleInputTask = (event) => {
     setNewTask(event.target.value);
-    console.log(newTask)
   }
 
   const handleSavedTasks = (email) => {
@@ -50,13 +49,16 @@ export const AuthProvider = ({ children }) => {
     });
   }
 
-  const deleteTask = async (event) => {
-    const id = await event.target.value;
+  const deleteTask = useCallback((targetId) => {
+    const id = targetId;
     Axios.delete(`http://localhost:3000/tasks/${id}`, {
     }).then((response) => {
       console.log(response)
     }).catch((err) => console.log(err));
-  }
+    
+    const getEmailFromLocal = localStorage.getItem('email');
+    handleAllTasks(getEmailFromLocal);
+  }, [])
 
   const dataArray = {
     handleLogin,

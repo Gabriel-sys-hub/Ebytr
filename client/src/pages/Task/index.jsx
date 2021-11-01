@@ -10,16 +10,12 @@ function Task() {
   const [logedUser, setLogedUser] = useState();
   
   useEffect(() => {
-    const getLogedUser = () => {
-      if (email) localStorage.setItem('email', email);
-      const getEmailFromLocal = localStorage.getItem('email');
-      if (!logedUser) setLogedUser(getEmailFromLocal);
-    }
-    getLogedUser();
-
+    if (email) localStorage.setItem('email', email);
+    const getEmailFromLocal = localStorage.getItem('email');
+    if (!logedUser) setLogedUser(getEmailFromLocal);
     if (email) handleAllTasks(email);
     if (!email) handleAllTasks(logedUser);
-  }, [logedUser, deleteTask])
+  }, [logedUser])
 
   return (
   <div className="mainContainer">
@@ -64,7 +60,7 @@ function Task() {
       <form className="createTaskContainer">
         <div className="submitContainer">
           <input type="text" onChange={handleInputTask}/>
-          <button type="submit" onClick={() => handleSavedTasks(logedUser)}>
+          <button type="submit" onClick={(event) => handleSavedTasks(event, logedUser)}>
             Submit Task
           </button>
         </div>

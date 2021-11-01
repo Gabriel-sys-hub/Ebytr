@@ -7,8 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState({});
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState();
-
-  console.log(tasks)
+  const [editedTask, setEditedTask] = useState();
 
   const validationsLogin = yup.object().shape({
     email: yup
@@ -22,7 +21,6 @@ export const AuthProvider = ({ children }) => {
   });
 
   const handleLogin = (values) => {
-    console.log(values)
     Axios.post("http://localhost:3000/login", {
       email: values.email,
       password: values.password,
@@ -33,6 +31,24 @@ export const AuthProvider = ({ children }) => {
 
   const handleInputTask = (event) => {
     setNewTask(event.target.value);
+  }
+
+  const editTaskPost = (id, email) => {
+    console.log(id)
+    console.log(email)
+    Axios.put(`http://localhost:3000/tasks/`, {
+      task: editedTask,
+      id: id
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .then(() => handleAllTasks(email))
+      .catch((err) => console.log(err));
+  }
+
+  const handleEditedTask = (event) => {
+    setEditedTask(event.target.value);
   }
   
   const handleAllTasks = (email) => {
@@ -70,7 +86,9 @@ export const AuthProvider = ({ children }) => {
     handleSavedTasks,
     handleAllTasks,
     handleInputTask,
-    deleteTask
+    deleteTask,
+    editTaskPost,
+    handleEditedTask
   }
 
  return (

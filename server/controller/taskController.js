@@ -29,9 +29,9 @@ const deleteTask = async (req, res) => {
 }
 
 const updateTask = async (req, res) => {
-  const { id } = req.body;
+  const { id, task } = req.body;
 
-  const result = await service.updateTask(id)
+  const result = await service.updateTask(id, task)
 
   if (id === undefined) return res.status(400).json({ message: "Task does not exists!" })
 

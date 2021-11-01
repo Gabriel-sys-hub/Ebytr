@@ -63,10 +63,16 @@
 
 
       .buttonContainer {
-        display: flex;
         align-items: flex-end;
+        display: flex;
+        position: relative;
         justify-content: flex-end;
         height: 100%;
+        
+        .modalInput {
+          align-self: flex-end;
+          height: 140px;
+        }
 
         button {
           border: solid 1px var(--background-purple);

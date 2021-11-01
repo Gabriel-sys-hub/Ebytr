@@ -20,17 +20,20 @@ const getAllTasks = async (req, res) => {
   return res.status(200).json(result);
 }
 
+const deleteTask = async (req, res) => {
+  const { id } = req.params;
+
+  const result = await service.deleteTask(id);
+
+  return res.status(200).json(result);
+}
+
 const updateTask = async (req, res) => {
-  
-  const tasks = await getAllTasks();
+  const { id } = req.body;
 
-  const findTaskWithId = tasks.find((newId) => tasks.id === newId);
+  const result = await service.updateTask(id)
 
-  console.log(findTaskWithId);
-
-  if (findTaskWithId === null) return false; 
-
-  const result = await service.updateTask(findTaskWithId)
+  if (id === undefined) return res.status(400).json({ message: "Task does not exists!" })
 
   return res.status(200).json(result);
 }
@@ -39,4 +42,5 @@ module.exports = {
   saveTask,
   updateTask,
   getAllTasks,
+  deleteTask
 }

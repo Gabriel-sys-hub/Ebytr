@@ -17,8 +17,16 @@ const getAllTasks = async (email) => {
   return result;
 }
 
+
+const deleteTask = async (id) => {
+  const result = await taskModule.deleteTask(id);
+
+  return result;
+}
+
 module.exports = {
   saveTask,
   updateTask,
-  getAllTasks
+  getAllTasks,
+  deleteTask
 }

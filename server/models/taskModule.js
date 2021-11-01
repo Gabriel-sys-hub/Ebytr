@@ -1,3 +1,4 @@
+const { ObjectId } = require('bson');
 const connection = require('./connection');
 const TASK = 'tasks';
 
@@ -28,8 +29,17 @@ const getAllTasks = async (email) => {
   return allTasks;
 }
 
+const deleteTask = async (id) => {
+  await connection()
+    .then((db) => db.collection(TASK).deleteOne({_id: ObjectId(id)}))
+    .then((result) => console.log(result))
+  
+  return { _id: id };
+}
+
 module.exports = {
   saveTask,
   updateTask,
-  getAllTasks
+  getAllTasks,
+  deleteTask
 }

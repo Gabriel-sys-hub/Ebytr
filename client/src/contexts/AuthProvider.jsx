@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+<<<<<<< Updated upstream
   const handleInputTask = (event) => {
     setNewTask(event.target.value);
     console.log(newTask)
@@ -53,11 +54,49 @@ export const AuthProvider = ({ children }) => {
   const dataArray = {
     handleLogin,
     login,
+=======
+<<<<<<< Updated upstream
+  const dataArray = {
+    handleLogin,
+    login,
+    validationsLogin
+=======
+  const handleInputTask = (event) => {
+    setNewTask(event.target.value);
+  }
+
+  const deleteTask = async (event) => {
+    const id = await event.target.value;
+    Axios.delete(`http://localhost:3000/tasks/${id}`, {
+    }).then((response) => {
+      console.log(response)
+    }).catch((err) => console.log(err));
+  }
+
+  const handleSavedTasks = (email) => {
+    Axios.post("http://localhost:3000/tasks", {
+      task: newTask,
+      email: email,
+    }).then((response) => {
+      console.log('oi')
+      setLogin(response.data);
+    });
+  }
+
+  const dataArray = {
+    handleLogin,
+    login,
+>>>>>>> Stashed changes
     validationsLogin,
     tasks,
     handleSavedTasks,
     handleAllTasks,
     handleInputTask,
+<<<<<<< Updated upstream
+=======
+    deleteTask
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   }
 
  return (

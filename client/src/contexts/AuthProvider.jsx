@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const handleLogin = (values) => {
+    console.log(values)
     Axios.post("http://localhost:3000/login", {
       email: values.email,
       password: values.password,

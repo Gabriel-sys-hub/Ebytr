@@ -35,8 +35,8 @@
     display: flex;
     flex-wrap: wrap;
     width: 70%;
-    height: 100vh;
-    background-color: rgb(255, 255, 255);
+    min-height: 100vh;
+    height: 100%;
 
     .eachTaskContainer {
       background-color: var(--task-container);
@@ -44,11 +44,14 @@
       border-radius: 5px;
       width: 20%;
       padding: 15px;
+      min-height: 20vh;
       height: 20%;
       margin: 5px;
 
       .task {
-        
+        p {
+          word-break: break-all;
+        }
         &:after {
           content: '';
           width: 50px;
@@ -89,6 +92,8 @@
     display: flex;
     flex-direction: column;
     width: 25%;
+    min-height: 100vh;
+    height: 100%;
 
     .user {
       color: white;
@@ -158,7 +163,8 @@
     .taskContainer {
       width: 100%;
       height: 100%;
-      display: block;
+      display: flex;
+      min-height: 69vh;
 
       .eachTaskContainer {
         width: 100%;
@@ -168,7 +174,8 @@
     .secondHeader {
       justify-content: center;
       width: 100%;
-      height: 34vh;
+      height: 31vh;
+      min-height: 19vh;
 
       .picture {
         display: none;

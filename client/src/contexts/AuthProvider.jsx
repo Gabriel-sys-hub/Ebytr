@@ -33,12 +33,25 @@ export const AuthProvider = ({ children }) => {
     setNewTask(event.target.value);
   }
 
-  const editTaskPost = (id, email) => {
-    console.log(id)
-    console.log(email)
+  const editTaskPost = (id) => {
+    const email = localStorage.getItem('email');
     Axios.put(`http://localhost:3000/tasks/`, {
       task: editedTask,
-      id: id
+      id: id,
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .then(() => handleAllTasks(email))
+      .catch((err) => console.log(err));
+  }
+
+  const editTaskStatus = (id, status) => {
+    const email = localStorage.getItem('email');
+    console.log(id, status)
+    Axios.put(`http://localhost:3000/tasks/status`, {
+      id: id,
+      status: status,
     })
       .then((response) => {
         console.log(response)
@@ -88,7 +101,8 @@ export const AuthProvider = ({ children }) => {
     handleInputTask,
     deleteTask,
     editTaskPost,
-    handleEditedTask
+    handleEditedTask,
+    editTaskStatus
   }
 
  return (

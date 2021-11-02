@@ -29,9 +29,21 @@ const deleteTask = async (req, res) => {
 }
 
 const updateTask = async (req, res) => {
-  const { id, task } = req.body;
+  const { id, task} = req.body;
 
-  const result = await service.updateTask(id, task)
+  console.log(id, task)
+
+  const result = await service.updateTask(id, task )
+
+  if (id === undefined) return res.status(400).json({ message: "Task does not exists!" })
+
+  return res.status(200).json(result);
+}
+
+const updateTaskStatus = async (req, res) => {
+  const { id: { id, status}} = req.body;
+
+  const result = await service.updateTaskStatus(id, status)
 
   if (id === undefined) return res.status(400).json({ message: "Task does not exists!" })
 
@@ -42,5 +54,6 @@ module.exports = {
   saveTask,
   updateTask,
   getAllTasks,
-  deleteTask
+  deleteTask,
+  updateTaskStatus
 }

@@ -33,6 +33,24 @@ export const AuthProvider = ({ children }) => {
     setNewTask(event.target.value);
   }
 
+  const changeOrderByDate = () => {
+    const sort = tasks.sort((a, b) => {
+      if (a.task.toLowerCase() < b.task.toLowerCase()) return -1;
+      if ( a.task.toLowerCase() > b.task.toLowerCase()) return 1;
+      return 0;
+    })
+    setTasks(sort);
+  }
+
+  const changeOrderByStatus = () => {
+    const sort = tasks.sort((a, b) => {
+      if (a.status.toLowerCase() > b.status.toLowerCase()) return -1;
+      if ( a.status.toLowerCase() < b.status.toLowerCase()) return 1;
+      return 0;
+    })
+    setTasks(sort);
+  }
+
   const editTaskPost = (id) => {
     const email = localStorage.getItem('email');
     Axios.put(`http://localhost:3000/tasks/`, {
@@ -102,7 +120,9 @@ export const AuthProvider = ({ children }) => {
     deleteTask,
     editTaskPost,
     handleEditedTask,
-    editTaskStatus
+    editTaskStatus,
+    changeOrderByDate,
+    changeOrderByStatus,
   }
 
  return (

@@ -12,6 +12,9 @@ function Login() {
   return (
     <div className="loginContainer">
       { context.login.email && <Redirect to="/tasks" />}
+      <div className="logo">
+        <img src="/logo.gif" alt="Minha Figura" />
+      </div>
       <div className="loginWhiteContainer">
         <h1 className="loginName">Login</h1>
         <Formik
@@ -30,7 +33,7 @@ function Login() {
             </div>
             {/* Outro campo */}
             <div className="form-group">
-              <Field name="password" className="form-field" placeholder="Senha" />
+              <Field name="password" type="password" className="form-field" placeholder="Senha" />
               <ErrorMessage
                 component="span"
                 name="password"

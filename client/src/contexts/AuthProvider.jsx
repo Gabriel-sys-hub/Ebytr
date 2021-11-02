@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { useState, useCallback } from 'react';
 import Axios from 'axios';
 import * as yup from 'yup';
 import UserContext from './UserContext';
 
-const AuthProvider = (children) => {
+const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState({});
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState();
@@ -122,4 +123,9 @@ const AuthProvider = (children) => {
     <UserContext.Provider value={dataArray}>{children}</UserContext.Provider>
   );
 };
+
+AuthProvider.propTypes = {
+  children: PropTypes.objectOf.isRequired,
+};
+
 export default AuthProvider;

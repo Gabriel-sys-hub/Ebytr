@@ -6,20 +6,17 @@ import './styles.scss';
 
 
 function Task() {
-  const { login: { email }, handleAllTasks, handleSavedTasks, handleInputTask, tasks, deleteTask } = useContext(UserContext);
+  const { login: { email }, handleAllTasks, handleSavedTasks, handleInputTask, tasks, deleteTask, editTaskPost, handleEditedTask } = useContext(UserContext);
   const [logedUser, setLogedUser] = useState();
+  const [editModel, setEditModel] = useState();
   
   useEffect(() => {
-    const getLogedUser = () => {
-      if (email) localStorage.setItem('email', email);
-      const getEmailFromLocal = localStorage.getItem('email');
-      if (!logedUser) setLogedUser(getEmailFromLocal);
-    }
-    getLogedUser();
-
+    if (email) localStorage.setItem('email', email);
+    const getEmailFromLocal = localStorage.getItem('email');
+    if (!logedUser) setLogedUser(getEmailFromLocal);
     if (email) handleAllTasks(email);
     if (!email) handleAllTasks(logedUser);
-  }, [logedUser, deleteTask])
+  }, [logedUser])
 
   return (
   <div className="mainContainer">
@@ -39,16 +36,25 @@ function Task() {
       {tasks.length > 0 && tasks.map((eachItem) => {
         return (
           <div className="eachTaskContainer" key={eachItem._id}>
-            <div className="task">
-              {eachItem.task}
-            </div>
+            { !editModel && <div className="task">
+              <p>{eachItem.task}</p>
+            </div>}
             <div className="buttonContainer">
-              <button type="button" onClick={() => deleteTask(eachItem._id)}>
+              { !editModel && <button type="button" onClick={() => deleteTask(eachItem._id)}>
                 <AiFillDelete/>
-              </button>
-              <button>
+              </button>}
+              { !editModel && <button type="button" onClick={() => setEditModel(true)}>
                 <AiFillEdit/>
-              </button>
+              </button>}
+              { editModel && (
+                <div className="inputEditContainer">
+                  <input className="modalInput" type="text-area" onChange={handleEditedTask}/>
+                  <button type="button" onClick={() => {
+                    editTaskPost(eachItem._id, logedUser);
+                    setEditModel(false);
+                  }}>Send Edit</button>
+                </div>
+              )}
             </div>
           </div>
         )
@@ -64,7 +70,7 @@ function Task() {
       <form className="createTaskContainer">
         <div className="submitContainer">
           <input type="text" onChange={handleInputTask}/>
-          <button type="submit" onClick={() => handleSavedTasks(logedUser)}>
+          <button type="submit" onClick={(event) => handleSavedTasks(event, logedUser)}>
             Submit Task
           </button>
         </div>

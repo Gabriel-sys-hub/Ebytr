@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [login, setLogin] = useState({});
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState();
+  const [editedTask, setEditedTask] = useState();
 
   const validationsLogin = yup.object().shape({
     email: yup
@@ -18,13 +19,6 @@ export const AuthProvider = ({ children }) => {
       .min(8, "Password need to be atlast 8 characteres lenght")
       .required("Password is required"),
   });
-  
-  const handleAllTasks = (email) => {
-    Axios.get(`http://localhost:3000/tasks/${email}`
-    ).then((response) => {
-      setTasks(response.data);
-    }).catch(() => new Error('Error while trying to connect'))
-  }
 
   const handleLogin = (values) => {
     Axios.post("http://localhost:3000/login", {
@@ -39,25 +33,49 @@ export const AuthProvider = ({ children }) => {
     setNewTask(event.target.value);
   }
 
-  const handleSavedTasks = (email) => {
+  const editTaskPost = (id, email) => {
+    console.log(id)
+    console.log(email)
+    Axios.put(`http://localhost:3000/tasks/`, {
+      task: editedTask,
+      id: id
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .then(() => handleAllTasks(email))
+      .catch((err) => console.log(err));
+  }
+
+  const handleEditedTask = (event) => {
+    setEditedTask(event.target.value);
+  }
+  
+  const handleAllTasks = (email) => {
+    Axios.get(`http://localhost:3000/tasks/${email}`
+    ).then((response) => {
+      setTasks([...response.data]);
+    }).catch(() => new Error('Error while trying to connect'));
+    return;
+  }
+
+  const handleSavedTasks = (event, email) => {
+    event.preventDefault();
     Axios.post("http://localhost:3000/tasks", {
       task: newTask,
       email: email,
-    }).then((response) => {
-      console.log('oi')
-      setLogin(response.data);
+    }).then(() => {
+      handleAllTasks(email)
     });
   }
 
-  const deleteTask = useCallback((targetId) => {
+  const deleteTask =  useCallback((targetId) => {
     const id = targetId;
     Axios.delete(`http://localhost:3000/tasks/${id}`, {
-    }).then((response) => {
-      console.log(response)
+    }).then(() => {
+      const getEmailFromLocal = localStorage.getItem('email');
+      handleAllTasks(getEmailFromLocal);
     }).catch((err) => console.log(err));
-    
-    const getEmailFromLocal = localStorage.getItem('email');
-    handleAllTasks(getEmailFromLocal);
   }, [])
 
   const dataArray = {
@@ -68,7 +86,9 @@ export const AuthProvider = ({ children }) => {
     handleSavedTasks,
     handleAllTasks,
     handleInputTask,
-    deleteTask
+    deleteTask,
+    editTaskPost,
+    handleEditedTask
   }
 
  return (

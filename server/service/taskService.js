@@ -6,8 +6,8 @@ const saveTask = async (task, email, createdAt) => {
   return result;
 };
 
-const updateTask = async (id) => {
-  const result = await taskModule.updateTask(id);
+const updateTask = async (id, task) => {
+  const result = await taskModule.updateTask(id, task);
 
   return result;
 }

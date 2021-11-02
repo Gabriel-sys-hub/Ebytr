@@ -6,8 +6,14 @@
 
 <ul>
   <li>ReactJS</li>
-  <ul>
+    <ul>
       <li>Javascript</li>
+      <li>Yup - Vailidação dos inputs no front-end</li>
+      <li>Date-Fns - Formatação da data</li>
+      <li>Formik - Criação de formularios</li>
+      <li>React-icons</li>
+      <li>SASS</li>
+      <li>Axios</li>
     </ul>
   <li>React</li>
     <ul>
@@ -15,7 +21,12 @@
     </ul>
   <li>NodeJS</li>
     <ul>
+      <li>Dotenv</li>
+      <li>Cors</li>
+      <li>Joi</li>
       <li>Express</li>
+      <li>Jsonwebtoken</li>
+      <li>Nodemon</li>
     </ul>
   <li>MongoDB</li>
 </ul>

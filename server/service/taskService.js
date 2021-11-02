@@ -6,8 +6,14 @@ const saveTask = async (task, email, createdAt) => {
   return result;
 };
 
-const updateTask = async (id, task) => {
-  const result = await taskModule.updateTask(id, task);
+const updateTask = async (id, task, status) => {
+  const result = await taskModule.updateTask(id, task, status);
+
+  return result;
+}
+
+const updateTaskStatus = async (id, status) => {
+  const result = await taskModule.updateTaskStatus(id, status);
 
   return result;
 }
@@ -28,5 +34,6 @@ module.exports = {
   saveTask,
   updateTask,
   getAllTasks,
-  deleteTask
+  deleteTask,
+  updateTaskStatus
 }

@@ -31,6 +31,7 @@
   }
 
   .taskContainer {
+    align-content: flex-start;
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-wrap: wrap;
@@ -102,7 +103,7 @@
           cursor: pointer;
           padding: 5px;
           margin: 5px;
-          margin-bottom: 20px;
+          margin-bottom: 5px;
 
           &:hover {
             background-color: var(--background-purple);

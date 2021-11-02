@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BiTask } from 'react-icons/bi';
+import { FaSortAlphaDown } from 'react-icons/fa';
+import { ImSortAmountAsc } from 'react-icons/im';
 import HandleChangeColor from '../../components/handleChangeColor';
 import { pt } from 'date-fns/locale';
 import { format } from 'date-fns';
@@ -9,35 +11,42 @@ import './styles.scss';
 
 
 function Task() {
-  const { login: { email }, handleAllTasks, handleSavedTasks, handleInputTask, tasks, deleteTask, editTaskPost, handleEditedTask, editTaskStatus } = useContext(UserContext);
+  const { login: { email },changeOrderByStatus, handleAllTasks, handleSavedTasks, handleInputTask, tasks, deleteTask, editTaskPost, handleEditedTask, editTaskStatus, changeOrderByDate } = useContext(UserContext);
   const [logedUser, setLogedUser] = useState();
   const [editModel, setEditModel] = useState();
+  const [changeTrue, setChangeTrue] = useState(false);
 
   const changeNameStatus = (id, statusName) => {
     if (statusName === 'Pending') editTaskStatus({ id, status: 'InProgress' })
     if (statusName === 'Done') editTaskStatus({ id, status: 'Pending' })
     if (statusName === 'InProgress') editTaskStatus({ id, status: 'Done' });
   }
-  
+
   useEffect(() => {
     if (email) localStorage.setItem('email', email);
     const getEmailFromLocal = localStorage.getItem('email');
     if (!logedUser) setLogedUser(getEmailFromLocal);
     if (email) handleAllTasks(email);
     if (!email) handleAllTasks(logedUser);
-  }, [logedUser])
+  }, [logedUser]);
 
   return (
   <div className="mainContainer">
     <header className="firstHeader">
-      <button>
+      <button onClick={() => handleAllTasks(logedUser)}>
         <BiTask/>
       </button>
-      <button>
-        B2
+      <button onClick={() => {
+        changeOrderByDate();
+        setChangeTrue(!changeTrue);
+      }}>
+        <FaSortAlphaDown/>
       </button>
-      <button>
-        B3
+      <button onClick={() => {
+        changeOrderByStatus();
+        setChangeTrue(!changeTrue);
+      }}>
+        <ImSortAmountAsc/>
       </button>
       
     </header>

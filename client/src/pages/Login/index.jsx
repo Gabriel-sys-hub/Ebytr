@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <div className="loginContainer">
-      { context.login.email && <Redirect to="/tasks" />}
+      { context.login?.email && <Redirect to="/tasks" />}
       <div className="logo">
         <img src="/logo.gif" alt="Minha Figura" />
       </div>
@@ -40,8 +40,7 @@ function Login() {
                 className="form-error"
               />
             </div>
-
-            <button className="button" type="submit">
+            <button className="button" name="login" type="submit">
               Login
             </button>
             <Link to="/register" type="button"><button className="registerButton" type="button">Register</button></Link>

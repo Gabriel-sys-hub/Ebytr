@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+/* import { Redirect } from 'react-router-dom'; */
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -8,13 +8,13 @@ import Axios from 'axios';
 
 function Register() {
   const [error, setError] = useState();
-  const [registerResponse, setRegisterResponse] = useState([]);
+  /*   const [registerResponse, setRegisterResponse] = useState([]); */
 
   const handleClickRegister = (values) => {
     Axios.post('http://localhost:3000/register', {
       email: values.email,
       password: values.password,
-    }).then((response) => setRegisterResponse(response)).catch((err) => setError(err));
+    })/* .then((response) => setRegisterResponse(response)) */.catch((err) => setError(err));
   };
 
   const validationRegister = yup.object().shape({
@@ -24,7 +24,7 @@ function Register() {
 
   return (
     <div className="container">
-      { registerResponse && <Redirect to="/" />}
+      {/* { registerResponse && <Redirect to="/" />} */}
       <div className="loginContainer">
         <div className="logo">
           <img src="/logo.gif" alt="Minha Figura" />

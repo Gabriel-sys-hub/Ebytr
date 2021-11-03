@@ -61,7 +61,6 @@ describe('Tasks', () => {
         .send({
             'task': 'Fazer farinha com pão de sal'
         });
-      
     });
 
     after(async () => {

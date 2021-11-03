@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState();
   const [editedTask, setEditedTask] = useState();
+  const [error, setError] = useState([]);
 
   const validationsLogin = yup.object().shape({
     email: yup.string().email('Invalid Email').required('Email is required'),
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
       password: values.password,
     }).then((response) => {
       setLogin(response.data);
-    });
+    }).catch((err) => setError(err));
   };
 
   const handleInputTask = (event) => {
@@ -117,6 +118,7 @@ const AuthProvider = ({ children }) => {
     editTaskStatus,
     changeOrderByDate,
     changeOrderByStatus,
+    error,
   };
 
   return (
@@ -125,7 +127,7 @@ const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.objectOf.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export default AuthProvider;

@@ -11,7 +11,7 @@ import './styles.scss';
 
 function Task() {
   const {
-    login: { email },
+    login,
     changeOrderByStatus,
     handleAllTasks,
     handleSavedTasks,
@@ -34,11 +34,11 @@ function Task() {
   };
 
   useEffect(() => {
-    if (email) localStorage.setItem('email', email);
+    if (login.email) localStorage.setItem('email', login.email);
     const getEmailFromLocal = localStorage.getItem('email');
     if (!logedUser) setLogedUser(getEmailFromLocal);
-    if (email) handleAllTasks(email);
-    if (!email) handleAllTasks(logedUser);
+    if (login.email) handleAllTasks(login.email);
+    if (!login.email) handleAllTasks(logedUser);
   }, [logedUser]);
 
   return (
@@ -87,13 +87,13 @@ function Task() {
               </p>
               )}
               {!editModel && (
-              <p className="status">
+              <div className="status">
                 <HandleChangeColor
                   changeNameStatus={() => changeNameStatus(id, status)}
                   status={status}
                 />
                 {status}
-              </p>
+              </div>
               )}
               <div className="buttonContainer">
                 {!editModel && (
@@ -133,12 +133,13 @@ function Task() {
       </main>
       <header className="secondHeader">
         <div className="picture">A</div>
-        <div className="user">{email || logedUser}</div>
+        <div className="user">{login.email || logedUser}</div>
         <form className="createTaskContainer">
           <div className="submitContainer">
             <input type="text" onChange={handleInputTask} />
             <button
               type="submit"
+              name="submit"
               onClick={(event) => {
                 handleSavedTasks(event, logedUser);
               }}

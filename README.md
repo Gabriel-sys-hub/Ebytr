@@ -70,9 +70,6 @@ $ git clone git@github.com:Gabriel-sys-hub/Ebytr.git
 $ cd server
 
 # Instale as dependências
-$ yarn
-
-# Instale as dependencias extras necessarias
 $ yarn add
 
 # Execute a aplicação
@@ -103,9 +100,6 @@ $ npm start
 $ cd client
 
 # Instale as dependências
-$ yarn
-
-# Instale as dependencias extras necessarias
 $ yarn add
 
 # Execute a aplicação

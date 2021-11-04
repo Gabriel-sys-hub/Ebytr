@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <div className="loginContainer">
-      { context.login?.email && <Redirect to="/tasks" />}
+      { localStorage.getItem('email') && <Redirect to="/tasks" />}
       <div className="logo">
         <img src="/logo.gif" alt="Minha Figura" />
       </div>

@@ -5,8 +5,8 @@ const findByEmail = async (email) => {
   return findUser;
 };
 
-const setUserRegister = async (email, password) => {
-  const users = await model.setUserRegister(email, password);
+const setUserRegister = async (email, password, name, office) => {
+  const users = await model.setUserRegister(email, password, name, office);
   return users;
 };
 

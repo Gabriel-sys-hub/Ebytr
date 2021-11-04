@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BiTask } from 'react-icons/bi';
+import { Redirect } from 'react-router-dom';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import { ImSortAmountAsc } from 'react-icons/im';
 import { pt } from 'date-fns/locale';
@@ -11,7 +12,6 @@ import './styles.scss';
 
 function Task() {
   const {
-    login,
     changeOrderByStatus,
     handleAllTasks,
     handleSavedTasks,
@@ -23,9 +23,19 @@ function Task() {
     editTaskStatus,
     changeOrderByDate,
   } = useContext(UserContext);
-  const [logedUser, setLogedUser] = useState();
+
   const [editModel, setEditModel] = useState();
   const [changeTrue, setChangeTrue] = useState(false);
+  const [logOut, setLogOut] = useState(false);
+
+  const email = localStorage.getItem('email');
+  const name = localStorage.getItem('name');
+  const office = localStorage.getItem('office');
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    setLogOut(true);
+  };
 
   const changeNameStatus = (id, statusName) => {
     if (statusName === 'Pending') editTaskStatus({ id, status: 'InProgress' });
@@ -34,17 +44,13 @@ function Task() {
   };
 
   useEffect(() => {
-    if (login.email) localStorage.setItem('email', login.email);
-    const getEmailFromLocal = localStorage.getItem('email');
-    if (!logedUser) setLogedUser(getEmailFromLocal);
-    if (login.email) handleAllTasks(login.email);
-    if (!login.email) handleAllTasks(logedUser);
-  }, [logedUser]);
+    handleAllTasks(email);
+  }, []);
 
   return (
     <div className="mainContainer">
       <header className="firstHeader">
-        <button type="button" onClick={() => handleAllTasks(logedUser)}>
+        <button type="button" onClick={() => handleAllTasks(email)}>
           <BiTask />
         </button>
         <button
@@ -97,10 +103,7 @@ function Task() {
               )}
               <div className="buttonContainer">
                 {!editModel && (
-                <button
-                  type="button"
-                  onClick={() => deleteTask(id)}
-                >
+                <button type="button" onClick={() => deleteTask(id)}>
                   <AiFillDelete />
                 </button>
                 )}
@@ -132,8 +135,24 @@ function Task() {
           ))}
       </main>
       <header className="secondHeader">
-        <div className="picture">A</div>
-        <div className="user">{login.email || logedUser}</div>
+        <div className="userContainer">
+          <div className="picture">A</div>
+
+          <div className="user">
+            <h2>Email:</h2>
+            {email}
+          </div>
+
+          <div className="user">
+            <h2>Name:</h2>
+            {name}
+          </div>
+
+          <div className="user">
+            <h2>Office:</h2>
+            {office}
+          </div>
+        </div>
         <form className="createTaskContainer">
           <div className="submitContainer">
             <input type="text" onChange={handleInputTask} />
@@ -141,14 +160,18 @@ function Task() {
               type="submit"
               name="submit"
               onClick={(event) => {
-                handleSavedTasks(event, logedUser);
+                handleSavedTasks(event, email);
               }}
             >
               Submit Task
             </button>
+            <button type="button" onClick={() => handleLogOut()}>
+              Logout
+            </button>
           </div>
         </form>
       </header>
+      {logOut && <Redirect to="/" />}
     </div>
   );
 }

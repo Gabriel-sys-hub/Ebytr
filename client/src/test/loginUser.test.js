@@ -2,8 +2,12 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import App from '../App';
+import Task from '../pages/Task';
 import renderWithRouter from './renderWithRouter';
+import AuthProvider from '../contexts/AuthProvider';
+import { act } from 'react-dom/test-utils';
+import { handleAllTasks } from "../contexts/AuthProvider";
+jest.mock('../contexts/AuthProvider')
 
 describe('Login', () => {
 
@@ -49,3 +53,18 @@ describe('Register', () => {
     expect(password.placeholder).toBe('Repeat Password')
   });
 });
+
+/* describe('Register', () => {
+  it('Quando abrir pagina de login o input "Email" exista na tela', () => {
+    const { getByRole } = renderWithRouter(
+    <AuthProvider>
+      <Task/>
+    </AuthProvider>
+    );
+
+    const button = getByRole("button", {name: 'submit'});
+
+    expect(button).toBeInTheDocument()
+  });
+}); */
+

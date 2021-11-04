@@ -31,8 +31,6 @@ const deleteTask = async (req, res) => {
 const updateTask = async (req, res) => {
   const { id, task} = req.body;
 
-  console.log(id, task)
-
   const result = await service.updateTask(id, task )
 
   if (id === undefined) return res.status(400).json({ message: "Task does not exists!" })

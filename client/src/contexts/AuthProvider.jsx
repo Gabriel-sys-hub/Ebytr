@@ -5,11 +5,11 @@ import * as yup from 'yup';
 import UserContext from './UserContext';
 
 const AuthProvider = ({ children }) => {
-  const [login, setLogin] = useState({});
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState();
   const [editedTask, setEditedTask] = useState();
   const [error, setError] = useState([]);
+  const [loged, setLoged] = useState(false);
 
   const validationsLogin = yup.object().shape({
     email: yup.string().email('Invalid Email').required('Email is required'),
@@ -24,7 +24,10 @@ const AuthProvider = ({ children }) => {
       email: values.email,
       password: values.password,
     }).then((response) => {
-      setLogin(response.data);
+      localStorage.setItem('email', response.data.email);
+      localStorage.setItem('office', response.data.office);
+      localStorage.setItem('name', response.data.name);
+      setLoged(!loged);
     }).catch((err) => setError(err));
   };
 
@@ -98,15 +101,15 @@ const AuthProvider = ({ children }) => {
     const id = targetId;
     Axios.delete(`http://localhost:3000/tasks/${id}`, {})
       .then(() => {
-        const getEmailFromLocal = localStorage.getItem('email');
-        handleAllTasks(getEmailFromLocal);
+        const email = localStorage.getItem('email');
+        handleAllTasks(email);
       })
       .catch((err) => err);
   }, []);
 
   const dataArray = {
     handleLogin,
-    login,
+    loged,
     validationsLogin,
     tasks,
     handleSavedTasks,

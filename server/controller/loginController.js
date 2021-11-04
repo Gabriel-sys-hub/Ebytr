@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const loginService = require('../service/loginService');
+const service = require('../service/registerService');
 const secret = process.env.SECRET;
 
 const UNAUTHORIZED = 401;
@@ -24,8 +25,10 @@ const login = async (req, res) => {
     return res.status(UNAUTHORIZED).json({ message: 'Incorrect username or password' }); 
   }
 
+  const { name, office } = await service.findByEmail(email);
+
   const token = jwt.sign({ data: response }, secret, jwtConfig);
-  return res.status(OK_200).json({ token, email });
+  return res.status(OK_200).json({ token, name, office, email });
 };
 
 module.exports = {

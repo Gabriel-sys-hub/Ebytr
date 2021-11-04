@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-/* import { Redirect } from 'react-router-dom'; */
+import { Redirect } from 'react-router-dom';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -8,13 +8,18 @@ import Axios from 'axios';
 
 function Register() {
   const [error, setError] = useState();
-  /*   const [registerResponse, setRegisterResponse] = useState([]); */
+  const [registerResponse, setRegisterResponse] = useState(false);
 
   const handleClickRegister = (values) => {
+    console.log(values);
     Axios.post('http://localhost:3000/register', {
       email: values.email,
       password: values.password,
-    })/* .then((response) => setRegisterResponse(response)) */.catch((err) => setError(err));
+      name: values.FullName,
+      office: values.Office,
+    }).then(() => setRegisterResponse(true))
+      .then(() => alert('Usuário cadastrado com sucesso!'))
+      .catch((err) => setError(err));
   };
 
   const validationRegister = yup.object().shape({
@@ -24,7 +29,7 @@ function Register() {
 
   return (
     <div className="container">
-      {/* { registerResponse && <Redirect to="/" />} */}
+      { registerResponse && <Redirect to="/" />}
       <div className="loginContainer">
         <div className="logo">
           <img src="/logo.gif" alt="Minha Figura" />
@@ -39,6 +44,8 @@ function Register() {
             <Form className="login-form">
               <div className="login-form-group">
                 <Field name="email" className="form-field" placeholder="Email" />
+                <Field name="Office" className="form-field" placeholder="Office" />
+                <Field name="FullName" className="form-field" placeholder="FullName" />
                 { error && error.response.data.message }
                 <ErrorMessage
                   component="span"

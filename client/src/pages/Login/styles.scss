@@ -107,3 +107,21 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .loginContainer {
+    background-color: var(--background-purple);
+    margin: 0 auto;
+  
+    .logo {
+      display: none;
+    }
+    
+    .loginWhiteContainer {
+      min-height: 95vh;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}

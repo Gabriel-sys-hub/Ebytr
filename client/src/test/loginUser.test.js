@@ -1,36 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Task from '../pages/Task';
+import App from '../App';
 import renderWithRouter from './renderWithRouter';
-import AuthProvider from '../contexts/AuthProvider';
-import { act } from 'react-dom/test-utils';
-import { handleAllTasks } from "../contexts/AuthProvider";
-jest.mock('../contexts/AuthProvider')
 
 describe('Login', () => {
 
   it('Quando abrir pagina de login o input "Email" exista na tela', () => {
-    const { getByPlaceholderText } = renderWithRouter(<Login/>);
-
-    const password = getByPlaceholderText("Email");
-
-    expect(password.placeholder).toBe('Email')
-  });
-
-  it('Quando abrir pagina de login o input "Senha" exista na tela', () => {
-    const { getByPlaceholderText } = renderWithRouter(<Login/>);
-
-    const password = getByPlaceholderText("Senha");
-
-    expect(password.placeholder).toBe('Senha')
-  });
-});
-
-describe('Register', () => {
-  it('Quando abrir pagina de login o input "Email" exista na tela', () => {
-    const { getByPlaceholderText } = renderWithRouter(<Register />);
+    const { getByPlaceholderText } = renderWithRouter(<App/>, { route: '/' });
 
     const email = getByPlaceholderText("Email");
 
@@ -38,33 +14,19 @@ describe('Register', () => {
   });
 
   it('Quando abrir pagina de login o input "Senha" exista na tela', () => {
-    const { getByPlaceholderText } = renderWithRouter(<Register />);
+    const { getByPlaceholderText } = renderWithRouter(<App/>, { route: '/' });
 
-    const password = getByPlaceholderText("Password");
+    const password = getByPlaceholderText("Senha");
 
-    expect(password.placeholder).toBe('Password')
+    expect(password.placeholder).toBe('Senha')
   });
 
-  it('Quando abrir pagina de login o input "Senha" exista na tela', () => {
-    const { getByPlaceholderText } = renderWithRouter(<Register />);
+  it('Quando abrir pagina de login o botão "Login" exista na tela', () => {
+    const { getByRole } = renderWithRouter(<App/>, { route: '/' });
 
-    const password = getByPlaceholderText("Repeat Password");
+    const button = getByRole('button', {name: /login/i});
 
-    expect(password.placeholder).toBe('Repeat Password')
+    expect(button).toBeInTheDocument('Login');
   });
 });
-
-/* describe('Register', () => {
-  it('Quando abrir pagina de login o input "Email" exista na tela', () => {
-    const { getByRole } = renderWithRouter(
-    <AuthProvider>
-      <Task/>
-    </AuthProvider>
-    );
-
-    const button = getByRole("button", {name: 'submit'});
-
-    expect(button).toBeInTheDocument()
-  });
-}); */
 

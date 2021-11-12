@@ -13,7 +13,7 @@ const saveTask = async (task, email, createdAt) => {
   return { tasks: { id, email, createdAt, status: pending } };
 };
 
-const updateTask = async (id, task, status) => {
+const updateTask = async (id, task) => {
   
   const updatedTask = await connection()
     .then((db) => db.collection(TASK).updateOne({ _id: ObjectId(id) }, { $set: { task: task }}))

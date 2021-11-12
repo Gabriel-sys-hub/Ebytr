@@ -11,7 +11,6 @@ function Register() {
   const [registerResponse, setRegisterResponse] = useState(false);
 
   const handleClickRegister = (values) => {
-    console.log(values);
     Axios.post('http://localhost:3000/register', {
       email: values.email,
       password: values.password,

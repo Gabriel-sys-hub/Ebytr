@@ -4,6 +4,8 @@
   "description": "",
   "main": "./api/server.js",
   "scripts": {
+    "start": "pm2-runtime start ecosystem.config.yml",
+    "start:dev": "pm2 start --watch",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "dev:test": "mocha ./test/task.test.js --exit",
     "dev:start": "nyc mocha ./test/*.test.js --exit",
